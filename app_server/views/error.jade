@@ -1,6 +1,8 @@
-extends layout
-
-block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+    title: 'Error',
+    message: err.message,
+    error: err
+  });
+});

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Review - Loc8r</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+  <header>
+    <h1><a href="/">Loc8r</a></h1>
+    <p>Add a review for <strong><%= title %></strong></p>
+  </header>
+
+  <main>
+    <h2>Leave your feedback</h2>
+    <form method="post" action="#">
+      <p>
+        <label for="name">Your Name:</label><br>
+        <input type="text" id="name" name="name" required>
+      </p>
+      <p>
+        <label for="rating">Rating:</label><br>
+        <select id="rating" name="rating">
+          <option>5 - Excellent</option>
+          <option>4 - Very Good</option>
+          <option>3 - Good</option>
+          <option>2 - Fair</option>
+          <option>1 - Poor</option>
+        </select>
+      </p>
+      <p>
+        <label for="review">Your Review:</label><br>
+        <textarea id="review" name="review" rows="5" cols="40"></textarea>
+      </p>
+      <p>
+        <button type="submit">Submit Review</button>
+        <a href="/" style="margin-left:15px;">Cancel</a>
+      </p>
+    </form>
+  </main>
+</body>
+</html>

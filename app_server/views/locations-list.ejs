@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+<body>
+  <header>
+    <h1><%= pageHeader.title %></h1>
+    <p class="strapline"><%= pageHeader.strapline %></p>
+  </header>
+
+  <main>
+    <section id="locations">
+      <% if (locations && locations.length > 0) { %>
+        <% locations.forEach(function(location, index) { %>
+          <div class="location-card">
+            <h2>
+              <a href="/location/<%= index %>"><%= location.name %></a>
+            </h2>
+            <p class="address"><%= location.address %></p>
+
+            <div class="details">
+              <p>
+                <strong>Rating:</strong>
+                <% for (let i = 1; i <= 5; i++) { %>
+                  <% if (i <= location.rating) { %>
+                    ⭐
+                  <% } else { %>
+                    ☆
+                  <% } %>
+                <% } %>
+              </p>
+              <p><strong>Distance:</strong> <%= location.distance %></p>
+              <p>
+                <strong>Facilities:</strong>
+                <%= location.facilities.join(', ') %>
+              </p>
+            </div>
+
+            <p>
+              <a href="/location/<%= index %>" class="btn">View Details</a>
+            </p>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <p>No locations found nearby. Try again later!</p>
+      <% } %>
+    </section>
+
+    <aside id="sidebar">
+      <h3>About Loc8r</h3>
+      <p><%= sidebar %></p>
+    </aside>
+  </main>
+
+  <footer>
+    <p>© 2025 Loc8r | Built for WPM Project</p>
+  </footer>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #222;
+      color: white;
+      text-align: center;
+      padding: 1.5em;
+    }
+    .strapline {
+      font-size: 1.1em;
+      color: #ddd;
+    }
+    #locations {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .location-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 15px;
+    }
+    .location-card h2 {
+      margin-top: 0;
+    }
+    .location-card a {
+      color: #0077cc;
+      text-decoration: none;
+    }
+    .location-card a:hover {
+      text-decoration: underline;
+    }
+    .btn {
+      display: inline-block;
+      background-color: #0077cc;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background-color: #005fa3;
+    }
+    #sidebar {
+      background-color: #f1f1f1;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 8px;
+    }
+    footer {
+      text-align: center;
+      background-color: #222;
+      color: white;
+      padding: 1em;
+      margin-top: 40px;
+    }
+  </style>
+</body>
+</html>
