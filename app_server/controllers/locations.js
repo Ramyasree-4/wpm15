@@ -1,125 +1,112 @@
-const locations = [
-  {
-    name: 'Starcups',
-    address: '125 High Street, Reading, RG6 1PS',
-    rating: 3,
-    facilities: ['Hot drinks', 'Food', 'Premium Wi-Fi'],
-    distance: '100m',
-    coords: { lat: 51.455041, lng: -0.9690884 },
-    openingTimes: [
-      { days: 'Monday - Friday', opening: '7:00am', closing: '7:00pm', closed: false },
-      { days: 'Saturday', opening: '8:00am', closing: '5:00pm', closed: false },
-      { days: 'Sunday', closed: true }
-    ],
-    reviews: [
-      {
-        author: 'Simon Holmes',
-        rating: 5,
-        timestamp: '16 July 2024',
-        reviewText: 'What a great place! I can’t say enough good things about it.'
-      },
-      {
-        author: 'Charlie Chaplin',
-        rating: 3,
-        timestamp: '16 June 2024',
-        reviewText: 'It was okay. Coffee could be hotter.'
-      }
-    ]
-  },
-  {
-    name: 'Cafe Hero',
-    address: '22 King Street, Reading, RG6 2DF',
-    rating: 4,
-    facilities: ['Hot drinks', 'Snacks', 'Wi-Fi'],
-    distance: '200m',
-    coords: { lat: 51.4559, lng: -0.9704 },
-    openingTimes: [
-      { days: 'Mon - Fri', opening: '8:00am', closing: '8:00pm', closed: false },
-      { days: 'Saturday', opening: '9:00am', closing: '6:00pm', closed: false },
-      { days: 'Sunday', closed: true }
-    ],
-    reviews: [
-      {
-        author: 'Amelia Rose',
-        rating: 4,
-        timestamp: '20 June 2024',
-        reviewText: 'Nice vibe and great service!'
-      }
-    ]
-  },
-  {
-    name: 'Burger Queen',
-    address: '10 Market Road, Reading, RG6 3CD',
-    rating: 2,
-    facilities: ['Food', 'Premium Wi-Fi'],
-    distance: '250m',
-    coords: { lat: 51.4568, lng: -0.9721 },
-    openingTimes: [
-      { days: 'Mon - Fri', opening: '10:00am', closing: '10:00pm', closed: false },
-      { days: 'Saturday', opening: '10:00am', closing: '9:00pm', closed: false },
-      { days: 'Sunday', opening: '11:00am', closing: '8:00pm', closed: false }
-    ],
-    reviews: [
-      {
-        author: 'Ravi Kumar',
-        rating: 2,
-        timestamp: '2 July 2024',
-        reviewText: 'Slow service, but okay food.'
-      }
-    ]
-  }
-];
+/* GET 'home' page */
 const homelist = (req, res) => {
   res.render('locations-list', {
     title: 'Loc8r - find a place to work with wifi',
     pageHeader: {
       title: 'Loc8r',
-      strapline: 'Find places to work with Wi-Fi near you!'
+      strapline: 'Find places to work with wifi near you!'
     },
-    sidebar:
-      "Looking for Wi-Fi and a seat? Loc8r helps you find places " +
-      "to work when out and about. Perhaps with coffee, cake or a pint? " +
-      "Let Loc8r help you find the place you're looking for.",
-    locations // Pass the array to the view
+    sidebar: "Looking for wifi and a seat? Loc8r helps you find places to work when out and about. Perhaps with coffee, cake or a pint? Let Loc8r help you find the place you're looking for.",
+    locations: [
+      {
+        name: 'Starcups',
+        address: '125 High Street, Reading, RG6 1PS',
+        rating: 3,
+        facilities: ['Hot drinks', 'Food', 'Premium wifi'],
+        distance: '100m'
+      },
+      {
+        name: 'Cafe Hero',
+        address: '125 High Street, Reading, RG6 1PS',
+        rating: 4,
+        facilities: ['Hot drinks', 'Food', 'Premium wifi'],
+        distance: '200m'
+      },
+      {
+        name: 'Burger Queen',
+        address: '125 High Street, Reading, RG6 1PS',
+        rating: 2,
+        facilities: ['Food', 'Premium wifi'],
+        distance: '250m'
+      }
+    ]
   });
 };
 
-/* ==================================================
-   GET 'Location Info' Page
-================================================== */
+/* GET 'Location info' page */
 const locationInfo = (req, res) => {
-  const locationId = parseInt(req.params.locationid, 10); // Get :locationid from URL
+  const locationName = req.params.name;
 
-  // Validate ID (ensure it exists)
-  if (isNaN(locationId) || locationId < 0 || locationId >= locations.length) {
-    return res.status(404).render('404', { title: 'Location Not Found' });
-  }
+  const locations = {
+    'starcups': {
+      name: 'Starcups',
+      address: '125 High Street, Reading, RG6 1PS',
+      rating: 3,
+      facilities: ['Hot drinks', 'Food', 'Premium wifi'],
+      coords: { lat: 51.455041, lng: -0.9690884 },
+      openingTimes: [
+        { days: 'Monday - Friday', opening: '7:00am', closing: '7:00pm', closed: false },
+        { days: 'Saturday', opening: '8:00am', closing: '5:00pm', closed: false },
+        { days: 'Sunday', opening: '', closing: '', closed: true }
+      ],
+      reviews: [
+        { author: 'Simon Holmes', rating: 3, timestamp: '16 February 2017', reviewText: 'What a great place.' },
+        { author: 'Charlie Chaplin', rating: 3, timestamp: '14 February 2017', reviewText: 'It was okay. Coffee wasn\'t great.' }
+      ]
+    },
+    'cafe-hero': {
+      name: 'Cafe Hero',
+      address: '125 High Street, Reading, RG6 1PS',
+      rating: 4,
+      facilities: ['Hot drinks', 'Food', 'Premium wifi'],
+      coords: { lat: 51.455041, lng: -0.9690884 },
+      openingTimes: [
+        { days: 'Monday - Friday', opening: '6:00am', closing: '8:00pm', closed: false },
+        { days: 'Saturday', opening: '7:00am', closing: '6:00pm', closed: false },
+        { days: 'Sunday', opening: '8:00am', closing: '4:00pm', closed: false }
+      ],
+      reviews: [
+        { author: 'Jane Doe', rating: 5, timestamp: '5 February 2017', reviewText: 'Great coffee and atmosphere!' }
+      ]
+    },
+    'burger-queen': {
+      name: 'Burger Queen',
+      address: '125 High Street, Reading, RG6 1PS',
+      rating: 2,
+      facilities: ['Food', 'Premium wifi'],
+      coords: { lat: 51.455041, lng: -0.9690884 },
+      openingTimes: [
+        { days: 'Monday - Friday', opening: '10:00am', closing: '10:00pm', closed: false },
+        { days: 'Saturday', opening: '10:00am', closing: '11:00pm', closed: false },
+        { days: 'Sunday', opening: '11:00am', closing: '9:00pm', closed: false }
+      ],
+      reviews: [
+        { author: 'John Smith', rating: 2, timestamp: '20 February 2017', reviewText: 'Food was okay, but wifi was slow.' }
+      ]
+    }
+  };
 
-  const location = locations[locationId]; // Get that specific location
+  const location = locations[locationName] || locations['starcups'];
 
   res.render('location-info', {
-    title: `${location.name} - Details`,
+    title: location.name,
     pageHeader: { title: location.name },
-    sidebar:
-      "Loc8r helps you find places to work with Wi-Fi near you! " +
-      "Read reviews, check facilities, and get details before you visit.",
-    location
+    sidebar: `${location.name} is on Loc8r because it has accessible wifi and space to sit down with your laptop and get some work done.\n\nIf you've been and you like it - or if you don't - please leave a review to help other people just like you.`,
+    location: location
   });
 };
 
-/* ==================================================
-   GET 'Add Review' Page
-================================================== */
+/* GET 'Add review' page */
 const addReview = (req, res) => {
-  res.render('location-review-form', {
-    title: 'Add Review',
-    pageHeader: { title: 'Add your review' }
+  // If you want to display the location ID or name in the form, you can pass it
+  const locationId = req.params.locationid || 'none';
+  res.render('location-review-form', { 
+    title: 'Add review',
+    pageHeader: { title: 'Add your review' },
+    locationId: locationId
   });
 };
 
-/* ==================================================
-   EXPORT CONTROLLERS
-================================================== */
 module.exports = {
   homelist,
   locationInfo,
