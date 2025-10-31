@@ -1,12 +1,3 @@
-/* ==================================================
-   LOC8R CONTROLLERS — locations.js
-   Based on "Getting MEAN" textbook structure
-   Author: Adapted for wpm_project
-================================================== */
-
-/* -----------------------------
-   Shared Locations Data (Static)
------------------------------ */
 const locations = [
   {
     name: 'Starcups',
@@ -78,10 +69,6 @@ const locations = [
     ]
   }
 ];
-
-/* ==================================================
-   GET 'Home' Page
-================================================== */
 const homelist = (req, res) => {
   res.render('locations-list', {
     title: 'Loc8r - find a place to work with wifi',
